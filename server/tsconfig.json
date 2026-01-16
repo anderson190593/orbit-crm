@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2020",             /* Versão moderna do JS */
+    "module": "commonjs",           /* Padrão do Node */
+    "rootDir": "./src",             /* Onde está nosso código */
+    "outDir": "./dist",             /* Onde ficará o código compilado */
+    "strict": true,                 /* MODO DEUS: Ativado */
+    "esModuleInterop": true,        /* Compatibilidade de módulos */
+    "skipLibCheck": true,           /* Pula checagem de tipos de libs externas (ganha performance) */
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"]
+}
