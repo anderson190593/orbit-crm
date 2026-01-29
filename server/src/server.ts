@@ -2,22 +2,26 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { router } from './routes';
+import { pool } from './database'; // <--- Importamos o banco
 
-// Carrega variáveis de ambiente (se existirem)
 dotenv.config();
 
 const app = express();
 
-// Middlewares
-app.use(cors()); // Libera acesso externo
-app.use(express.json()); // Permite que o servidor entenda JSON enviado no corpo da requisição
+app.use(cors());
+app.use(express.json());
+app.use('/api', router);
 
-// Rotas
-app.use('/api', router); // Todas as rotas começarão com /api
-
-// Definição da porta
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
+
+    // TESTE DE CONEXÃO AO INICIAR
+    try {
+        const { rows } = await pool.query('SELECT NOW()');
+        console.log(`🔌 Database connection test passed: ${rows[0].now}`);
+    } catch (error) {
+        console.error('❌ Database connection failed:', error);
+    }
 });
